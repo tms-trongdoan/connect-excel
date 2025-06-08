@@ -17,6 +17,9 @@ gem "bootsnap", require: false
 gem "kamal", require: false
 gem "thruster", require: false
 gem 'hmvc-rails','1.0.4'
+gem 'google-api-client'
+gem 'omniauth-google-oauth2'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"

@@ -1,0 +1,15 @@
+<h1>Google Sheets Demo</h1>
+<% if notice %>
+  <p style="color: green;"><%= notice %></p>
+<% end %>
+<% if alert %>
+  <p style="color: red;"><%= alert %></p>
+<% end %>
+
+<% if session[:user_id] %>
+  <p>Đã đăng nhập với ID: <%= session[:user_id] %></p>
+  <%= link_to 'Nhập Sheet ID và Cập nhật', new_sheet_path %>
+  <%= link_to 'Đăng xuất', logout_path %>
+<% else %>
+  <%= link_to 'Đăng nhập với Google', google_login_path %>
+<% end %>

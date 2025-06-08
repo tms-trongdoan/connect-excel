@@ -1,9 +1,14 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+User.create!([
+  { name: 'Nguyễn Văn An', age: 28, email: 'nguyenvanan@example.com' },
+  { name: 'Trần Thị Bình', age: 32, email: 'tranthibinh@example.com' },
+  { name: 'Lê Hoàng Cường', age: 25, email: 'lehoangcuong@example.com' },
+  { name: 'Phạm Thị Dung', age: 29, email: 'phamthidung@example.com' },
+  { name: 'Vũ Minh Đức', age: 35, email: 'vuminhduc@example.com' },
+  { name: 'Đặng Thị Em', age: 26, email: 'dangthiem@example.com' },
+  { name: 'Hoàng Văn Phúc', age: 31, email: 'hoangvanphuc@example.com' },
+  { name: 'Bùi Thị Giang', age: 27, email: 'buithigiang@example.com' },
+  { name: 'Trương Minh Hiếu', age: 33, email: 'truongminhhieu@example.com' },
+  { name: 'Lý Thị Hoa', age: 24, email: 'lythihoa@example.com' }
+])
+
+puts "Đã tạo #{User.count} người dùng"

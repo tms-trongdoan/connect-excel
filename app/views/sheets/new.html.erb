@@ -1,0 +1,97 @@
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <div class="mx-auto h-12 w-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
+        <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Xuất dữ liệu vào Google Sheet</h1>
+      <p class="text-gray-600">Kết nối và xuất dữ liệu của bạn lên Google Sheets</p>
+    </div>
+
+    <!-- Alert Messages -->
+    <% if notice %>
+      <div class="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+        </svg>
+        <%= notice %>
+      </div>
+    <% end %>
+
+    <% if alert %>
+      <div class="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+        </svg>
+        <%= alert %>
+      </div>
+    <% end %>
+
+    <!-- Form Card -->
+    <div class="bg-white rounded-xl shadow-lg p-8">
+      <%= form_with url: auth_sheet_path, method: :post, local: true, data: { turbo: false }, class: "space-y-6" do |form| %>
+        <!-- Sheet ID Field -->
+        <div class="space-y-2">
+          <%= form.label :sheet_id, 'Sheet ID', class: "block text-sm font-medium text-gray-700" %>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+            </div>
+            <%= form.text_field :sheet_id,
+                required: true,
+                placeholder: "Nhập Google Sheet ID...",
+                class: "block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200 ease-in-out" %>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">ID của Google Sheet trong URL (sau /spreadsheets/d/)</p>
+        </div>
+
+        <!-- Worksheet Name Field -->
+        <div class="space-y-2">
+          <%= form.label :worksheet_name, 'Tên Worksheet', class: "block text-sm font-medium text-gray-700" %>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <%= form.text_field :worksheet_name,
+                required: true,
+                placeholder: "Ví dụ: Sheet1",
+                class: "block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200 ease-in-out" %>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">Tên của sheet con trong file Google Sheets</p>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-4">
+          <%= form.submit 'Kết nối & Xuất dữ liệu',
+              class: "w-full flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform hover:scale-105 transition duration-200 ease-in-out shadow-lg hover:shadow-xl" %>
+        </div>
+      <% end %>
+
+      <!-- Help Section -->
+      <div class="mt-8 pt-6 border-t border-gray-200">
+        <h3 class="text-sm font-medium text-gray-900 mb-3">Hướng dẫn sử dụng:</h3>
+        <ul class="text-xs text-gray-600 space-y-2">
+          <li class="flex items-start">
+            <span class="flex-shrink-0 w-1.5 h-1.5 bg-indigo-500 rounded-full mt-2 mr-2"></span>
+            Mở Google Sheets và copy ID từ URL
+          </li>
+          <li class="flex items-start">
+            <span class="flex-shrink-0 w-1.5 h-1.5 bg-indigo-500 rounded-full mt-2 mr-2"></span>
+            Nhập tên worksheet (thường là "Sheet1")
+          </li>
+          <li class="flex items-start">
+            <span class="flex-shrink-0 w-1.5 h-1.5 bg-indigo-500 rounded-full mt-2 mr-2"></span>
+            Đảm bảo Google Sheet có quyền chia sẻ
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
